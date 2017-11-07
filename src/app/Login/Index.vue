@@ -21,38 +21,51 @@
 
 
 <script>
-  export default {
-    name: 'login',
-    data () {
-      return {
-        formValidata: {
-          username: 'admin',
-          password: 'admin'
-        },
-        ruleValidata: {
-          username: [
-            {
-              required: true,
-              message: '用户名不能为空'
-            }
-          ],
-          password: [
-            {
-              required: true,
-              message: '密码不能为空'
-            }
-          ]
-        }
-      }
-    },
-    methods: {
-      handleLogin () {
-        this.$refs.formValidata.validate(async valid => {
-          
-        })
+import api from '@/api/axios'
+// import auth from '@/utils/auth'
+
+export default {
+  name: 'login',
+  data () {
+    return {
+      formValidata: {
+        username: '',
+        password: ''
+      },
+      ruleValidata: {
+        username: [
+          {
+            required: true,
+            message: '用户名不能为空'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: '密码不能为空'
+          }
+        ]
       }
     }
+  },
+  methods: {
+    handleLogin () {
+      this.$refs.formValidata.validate(async valid => {
+        if (valid) {
+          let data = this.formValidata
+          let token = await api.UserLogin(data)
+          if (token.code === '401') {
+            alert('验证失败，用户名或密码错误')
+          } else {
+            this.$store.dispatch('UserLogin', token.access_token)
+            let user = await api.getUser()
+            this.$store.dispatch('UserInfo', user)
+          }
+        }
+      })
+    }
   }
+}
 </script>
 
 <style>
