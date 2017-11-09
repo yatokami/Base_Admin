@@ -55,11 +55,13 @@ export default {
           let data = this.formValidata
           let token = await api.UserLogin(data)
           if (token.code === '401') {
-            alert('验证失败，用户名或密码错误')
+            this.$Message.success('验证失败，用户名或密码错误')
           } else {
             this.$store.dispatch('UserLogin', token.access_token)
             let user = await api.getUser()
             this.$store.dispatch('UserInfo', user)
+            this.$Message.success('登录成功')
+            this.$router.push(this.$route.query.redirect || '/')
           }
         }
       })

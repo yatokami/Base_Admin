@@ -1,5 +1,5 @@
 const TOKEN = 'token'
-const MANAGER = 'manager'
+const MANAGER = 'userinfo'
 
 export default {
   name: 'auth',
@@ -12,5 +12,21 @@ export default {
       [MANAGER]: JSON.parse(localStorage.getItem('userinfo')),
       [TOKEN]: localStorage.getItem('token')
     }
+  },
+
+  /**
+   * 登出
+   */
+  logout () {
+    localStorage.removeItem(MANAGER)
+    localStorage.removeItem(TOKEN)
+  },
+
+  /**
+   * 是否已登录
+   * @return {boolean}
+   */
+  loggedIn () {
+    return !!localStorage.getItem(MANAGER) && !!localStorage.getItem(TOKEN)
   }
 }
