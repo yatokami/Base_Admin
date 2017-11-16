@@ -22,7 +22,6 @@
 
 <script>
 import api from '@/api/axios'
-// import auth from '@/utils/auth'
 
 export default {
   name: 'login',

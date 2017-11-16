@@ -8,7 +8,7 @@
         <ul class="layout-header-ul">
           <li @click="handleLogout"><a><Avatar icon="log-out"></Avatar></a></li>
           <li>&nbsp;&nbsp;</li>
-          <li>admin</li>
+          <li>{{ userName }}</li>
           <li><Avatar  src="https://i.loli.net/2017/08/21/599a521472424.jpg"></Avatar></li>
         </ul>
       </div>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="layout-copy">
-      2011-2016 &copy; TalkingData
+      2011-2017 &copy; TalkingData
     </div>
   </Col>
 </template>
@@ -40,7 +40,8 @@ export default {
     toggle: {
       type: Function,
       default: null
-    }
+    },
+    userName: String
   },
   methods: {
     emitClick () {

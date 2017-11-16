@@ -22,7 +22,6 @@ instance.interceptors.request.use(config => {
 })
 // axios拦截响应
 instance.interceptors.response.use(response => {
-  console.log(response)
   return Promise.resolve(response.data)
 }, err => {
   return Promise.reject(err)
@@ -48,5 +47,9 @@ export default {
   // 用户退出
   userLogout () {
     return instance.get(consts.API_URL + '/logout ')
+  },
+  // 用户目录
+  getMenu () {
+    return instance.get(consts.API_URL + '/Menu')
   }
 }
